@@ -30,11 +30,23 @@ const motivation = [
 
 /**
  * Get All Motivation Actions
+ *
+ * @returns array of motivation actions
  */
 function getAll() {
   return motivation;
 }
 
+/**
+ * Get Random Action
+ *
+ * @returns single JSON object from motivation actions
+ */
+function getRandom() {
+  return motivation[Math.floor(Math.random() * motivation.length)];
+}
+
 module.exports = {
-  getAll
+  getAll,
+  getRandom
 };
