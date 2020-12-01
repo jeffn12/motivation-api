@@ -2,20 +2,24 @@
  * Sample Data Set
  *
  * Action:
+ *    id: Number (unique)
  *    title: String
  *    description: String
  */
 const motivation = [
   {
+    id: 1,
     title: "Drink Water",
     description:
       "Drinking a full glass (8oz.+) of cold water can help perk you up, and it may give you just the boost you are looking for!"
   },
   {
+    id: 2,
     title: "Cool Shower",
     description: "Take a cooler shower than you are used to."
   },
   {
+    id: 3,
     title: "Breathe",
     description:
       "Take 5 deep breaths.  Count to 3 on each inhale, and again on each exhale.  1... 2... 3...  Let's do this!"
@@ -46,7 +50,24 @@ function getRandom() {
   return motivation[Math.floor(Math.random() * motivation.length)];
 }
 
+/**
+ * Get Action by ID
+ *
+ * @param id - id number of the action to be retrieved
+ * @returns - a single JSON object if id matches a document,
+ *            or an error message if ID doesn't match a document
+ */
+function getActionByID(id) {
+  const action = motivation.filter((action) => action.id === id);
+  if (action.length !== 0) {
+    return action;
+  } else {
+    return { message: `No actions were found with ID: '${id}'` };
+  }
+}
+
 module.exports = {
   getAll,
-  getRandom
+  getRandom,
+  getActionByID
 };
