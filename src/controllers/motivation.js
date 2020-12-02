@@ -1,3 +1,5 @@
+const Motivation = require("../db/models/Motivation");
+
 /**
  * Sample Data Set
  *
@@ -35,10 +37,10 @@ const motivation = [
 /**
  * Get All Motivation Actions
  *
- * @returns array of motivation actions
+ * @returns a Promise for all Motivation documents in db
  */
 function getAll() {
-  return motivation;
+  return Motivation.find({});
 }
 
 /**
@@ -66,7 +68,16 @@ function getActionByID(id) {
   }
 }
 
+function addMotivation({ action, description }) {
+  const newMotivation = new Motivation({
+    action,
+    description
+  });
+  return newMotivation.save();
+}
+
 module.exports = {
+  addMotivation,
   getAll,
   getRandom,
   getActionByID
