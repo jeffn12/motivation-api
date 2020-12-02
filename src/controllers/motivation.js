@@ -48,8 +48,11 @@ function getAll() {
  *
  * @returns single JSON object from motivation actions
  */
-function getRandom() {
-  return motivation[Math.floor(Math.random() * motivation.length)];
+async function getRandom() {
+  const docCount = await Motivation.countDocuments();
+  return Motivation.find({})
+    .limit(1)
+    .skip(Math.floor(Math.random() * docCount));
 }
 
 /**

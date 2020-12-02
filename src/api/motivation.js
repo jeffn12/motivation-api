@@ -10,9 +10,9 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/random", (req, res, next) => {
+router.get("/random", async (req, res, next) => {
   try {
-    const data = motivation.getRandom();
+    const data = await motivation.getRandom();
     res.json(data);
   } catch (err) {
     next(err);
@@ -28,9 +28,9 @@ router.get("/:id", (req, res, next) => {
   }
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-    const data = motivation.addMotivation(req.body);
+    const data = await motivation.addMotivation(req.body);
     res.json(data);
   } catch (err) {
     next(err);
