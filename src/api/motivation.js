@@ -19,9 +19,9 @@ router.get("/random", async (req, res, next) => {
   }
 });
 
-router.get("/:id", (req, res, next) => {
+router.get("/find", async (req, res, next) => {
   try {
-    const data = motivation.getActionByID(parseInt(req.params.id));
+    const data = await motivation.getMotivationByAction(req.query.action);
     res.json(data);
   } catch (err) {
     next(err);

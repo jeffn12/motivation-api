@@ -1,34 +1,6 @@
 const Motivation = require("../db/models/Motivation");
 
 /**
- * Sample Data Set
- *
- * Action:
- *    id: Number (unique)
- *    title: String
- *    description: String
- */
-const motivation = [
-  {
-    id: 1,
-    title: "Drink Water",
-    description:
-      "Drinking a full glass (8oz.+) of cold water can help perk you up, and it may give you just the boost you are looking for!"
-  },
-  {
-    id: 2,
-    title: "Cool Shower",
-    description: "Take a cooler shower than you are used to."
-  },
-  {
-    id: 3,
-    title: "Breathe",
-    description:
-      "Take 5 deep breaths.  Count to 3 on each inhale, and again on each exhale.  1... 2... 3...  Let's do this!"
-  }
-];
-
-/**
  * Controller for Motivation API
  *
  * methods to interact with data store, return info usable by API
@@ -37,7 +9,7 @@ const motivation = [
 /**
  * Get All Motivation Actions
  *
- * @returns a Promise for all Motivation documents in db
+ * @returns {Promise} for all Motivation documents in db
  */
 function getAll() {
   return Motivation.find({});
@@ -46,7 +18,7 @@ function getAll() {
 /**
  * Get Random Action
  *
- * @returns single JSON object from motivation actions
+ * @returns {Promise} for a single random JSON object from motivation actions
  */
 async function getRandom() {
   const docCount = await Motivation.countDocuments();
@@ -56,21 +28,21 @@ async function getRandom() {
 }
 
 /**
- * Get Action by ID
+ * Get Motivation by Action (name)
  *
- * @param id - id number of the action to be retrieved
- * @returns - a single JSON object if id matches a document,
- *            or an error message if ID doesn't match a document
+ * @param {String} action requested action
+ * @returns {Promise} results of .find() [array with document object if found, or empty if not found]
  */
-function getActionByID(id) {
-  const action = motivation.filter((action) => action.id === id);
-  if (action.length !== 0) {
-    return action;
-  } else {
-    return { message: `No actions were found with ID: '${id}'` };
-  }
+async function getMotivationByAction(action) {
+  return Motivation.find({ action });
 }
 
+/**
+ * Add New Motivation Document to DB
+ *
+ * @param {String} action main action title
+ * @param {String} description description of action, steps to perform, etc.
+ */
 function addMotivation({ action, description }) {
   const newMotivation = new Motivation({
     action,
@@ -80,8 +52,8 @@ function addMotivation({ action, description }) {
 }
 
 module.exports = {
-  addMotivation,
   getAll,
   getRandom,
-  getActionByID
+  getMotivationByAction,
+  addMotivation
 };
