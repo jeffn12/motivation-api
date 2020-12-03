@@ -2,10 +2,10 @@
 <link rel="stylesheet" href="/public/css/add-motivation.css" />
 
 <h1>Add Some Motivation</h1>
-<form action="POST">
+<form method="POST" action="/api/v1/motivation/add">
   <label for="action">Action</label>
-  <input type="text" id="action" />
+  <input type="text" id="action" name="action" />
   <label for="description">Description</label>
-  <textarea id="action"></textarea>
+  <textarea id="description" name="description"></textarea>
   <button type="submit">Submit</button>
 </form>

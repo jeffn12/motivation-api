@@ -28,10 +28,11 @@ router.get("/find", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/add", async (req, res, next) => {
   try {
+    //TODO: add validation
     const data = await motivation.addMotivation(req.body);
-    res.json(data);
+    res.redirect("/api/v1/motivation");
   } catch (err) {
     next(err);
   }
